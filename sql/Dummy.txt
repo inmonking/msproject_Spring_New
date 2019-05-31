@@ -1,0 +1,160 @@
+drop sequence seq_member;
+create sequence seq_member
+start with 1
+increment by 1
+nocycle;
+
+drop table tbl_member;
+create table tbl_member(
+  idnum number primary key,
+  id varchar2(30) not null,
+  pw varchar2(30) not null,
+  name varchar2(30) not null,
+  phone varchar2(30) UNIQUE,
+  email varchar2(50) UNIQUE,
+  zipcode varchar2(20),
+  addr1 varchar2(200),
+  addr2 varchar2(200),
+  birth_year number(4,0),
+  birth_month number(2,0),
+  birth_day number(2,0),
+  regdate date default sysdate
+);
+
+insert into tbl_member(idnum, id, pw, name, phone, email, zipcode, addr1, addr2, birth_year, birth_month, birth_day)
+values(seq_member.nextval, 'user1', '1234', '유저1', '010-1234-1234', '', '51900','광주','동구', 1990, 3, 14);
+insert into tbl_member(idnum, id, pw, name, phone, email, zipcode, addr1, addr2, birth_year, birth_month, birth_day)
+values(seq_member.nextval, 'user2', '1234', '유저2', '010-4321-4321', '', '51900','광주','북구', 1990, 3, 14);
+insert into tbl_member(idnum, id, pw, name, phone, email, zipcode, addr1, addr2, birth_year, birth_month, birth_day)
+values(seq_member.nextval, 'user3', '1234', '유저3', '010-4321-1234', '', '51900','광주','서구', 1990, 3, 14);
+
+select id from tbl_member 
+where id = 'user1';
+        
+commit;
+-- 게시판 테이블 -- 
+drop table tbl_board;
+create table tbl_board(
+    bno NUMBER PRIMARY key,
+    title VARCHAR2(200)  not null,
+    content VARCHAR2(4000) not null,
+    writer varchar2(30) not null,
+    viewcnt number default 0,
+    replycnt number DEFAULT 0,
+    goodcnt NUMBER default 0,
+    regdate date DEFAULT sysdate,
+    filename varchar2(100),
+    filesize number
+);
+DROP SEQUENCE seq_board;
+CREATE SEQUENCE seq_board
+start with 1
+INCREMENT by 1;
+
+-- 게시판 더미데이터 --
+insert into tbl_board(bno, title, content, writer)
+values(seq_board.nextval, '테스트 페이지 입니다1', '테스트에요1', 'user1');
+insert into tbl_board(bno, title, content, writer)
+values(seq_board.nextval, '테스트 페이지 입니다2', '테스트에요2', 'user1');
+insert into tbl_board(bno, title, content, writer)
+values(seq_board.nextval, '테스트 페이지 입니다3', '테스트에요3', 'user1');
+insert into tbl_board(bno, title, content, writer)
+values(seq_board.nextval, '테스트 페이지 입니다4', '테스트에요4', 'user1');
+insert into tbl_board(bno, title, content, writer)
+values(seq_board.nextval, '테스트 페이지 입니다5', '테스트에요5', 'user1');
+insert into tbl_board(bno, title, content, writer)
+values(seq_board.nextval, '테스트 페이지 입니다6', '테스트에요6', 'user1');
+insert into tbl_board(bno, title, content, writer)
+values(seq_board.nextval, '테스트 페이지 입니다7', '테스트에요7', 'user1');
+insert into tbl_board(bno, title, content, writer)
+values(seq_board.nextval, '테스트 페이지 입니다8', '테스트에요8', 'user1');
+insert into tbl_board(bno, title, content, writer)
+values(seq_board.nextval, '테스트 페이지 입니다9', '테스트에요9', 'user1');
+insert into tbl_board(bno, title, content, writer)
+values(seq_board.nextval, '테스트 페이지 입니다10', '테스트에요10', 'user1');
+
+commit;
+select * from tbl_board
+order by bno desc;
+
+drop SEQUENCE seq_reply;
+create SEQUENCE seq_reply
+start with 1
+INCREMENT by 1;
+
+drop table tbl_reply;
+create table tbl_reply(
+    rno number PRIMARY key,
+    content varchar2(2000) not null,
+    writer varchar2(30) not null,
+    regdate date default sysdate,
+    bno number not null
+);
+
+alter table tbl_reply
+add CONSTRAINT tbl_reply_fk_bno
+FOREIGN key(bno) REFERENCES tbl_board(bno);
+commit;
+
+delete from tbl_reply;
+insert into tbl_reply(rno, content, writer, bno)
+values (seq_reply.nextval, '댓글1', 'user1', 10);
+insert into tbl_reply(rno, content, writer, bno)
+values (seq_reply.nextval, '댓글2', 'user2', 9);
+insert into tbl_reply(rno, content, writer, bno)
+values (seq_reply.nextval, '댓글3', 'user3', 10);
+insert into tbl_reply(rno, content, writer, bno)
+values (seq_reply.nextval, '댓글4', 'user1', 9);
+insert into tbl_reply(rno, content, writer, bno)
+values (seq_reply.nextval, '댓글5', 'user2', 10);
+insert into tbl_reply(rno, content, writer, bno)
+values (seq_reply.nextval, '댓글6', 'user3', 9);
+
+commit;
+select * from tbl_reply;
+
+drop SEQUENCE seq_reply;
+create SEQUENCE seq_reply
+start with 1
+INCREMENT by 1;
+
+drop table tbl_reply;
+create table tbl_reply(
+    rno number PRIMARY key,
+    content varchar2(2000) not null,
+    writer varchar2(30) not null,
+    regdate date default sysdate,
+    bno number not null
+);
+
+alter table tbl_reply
+add CONSTRAINT tbl_reply_fk_bno
+FOREIGN key(bno) REFERENCES tbl_board(bno);
+commit;
+
+delete from tbl_reply;
+insert into tbl_reply(rno, content, writer, bno)
+values (seq_reply.nextval, '댓글1', 'user1', 10);
+insert into tbl_reply(rno, content, writer, bno)
+values (seq_reply.nextval, '댓글2', 'user2', 9);
+insert into tbl_reply(rno, content, writer, bno)
+values (seq_reply.nextval, '댓글3', 'user3', 10);
+insert into tbl_reply(rno, content, writer, bno)
+values (seq_reply.nextval, '댓글4', 'user1', 9);
+insert into tbl_reply(rno, content, writer, bno)
+values (seq_reply.nextval, '댓글5', 'user2', 10);
+insert into tbl_reply(rno, content, writer, bno)
+values (seq_reply.nextval, '댓글6', 'user3', 9);
+
+commit;
+select * from tbl_reply;
+
+alter table tbl_reply
+add CONSTRAINT tbl_reply_fk_bno
+FOREIGN key(bno) REFERENCES tbl_board(bno)
+on DELETE CASCADE;
+
+alter table tbl_good
+add CONSTRAINT tbl_good_fk_bno
+FOREIGN key(bno) REFERENCES tbl_board(bno)
+on delete CASCADE;
