@@ -175,7 +175,7 @@
 		</div>
 	</div>
 	<div style="width: 1300px; margin:50px auto 0px auto;">
-		<img src="resources/img/newproduct.png" style="margin: 20px auto;">
+		<img src="resources/img/brand.png" style="margin: 20px auto;">
 	</div>
 	<div style="position: relative;width: 1300px; height: 200px; margin: 0 auto;">
 		<span style="position: absolute; left: 0px;z-index: 50; width: 20px; height: 20px;top: 95px;"><i style="font-size: 20px" class="fas fa-chevron-left"></i></span>
