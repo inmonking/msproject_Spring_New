@@ -1,18 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<c:set var="path" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html>
 <head>
 	<title>회원가입 페이지</title>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 	<style type="text/css">
-		@import url('css/member.css?v=1');
+		@import url('${path}/resources/css/member.css?v=1');
 		@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding');
 	</style>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="js/member.js?v=1"></script>
+	<script src="${path}/resources/js/member.js?v=1"></script>
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-	<script src="js/daum_address.js"></script>
+	<script src="${path}/resources/js/daum_address.js"></script>
 </head>
 <body>
 	<header></header>

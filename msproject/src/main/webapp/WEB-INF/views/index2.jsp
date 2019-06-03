@@ -78,6 +78,8 @@
 	</div>
 	
 	
+	
+	
 	<div style="width: 1300px; margin: 0 auto; margin-top: 50px;">
 	<div>
 		<img src="resources/img/mechanews.png" style="margin: 20px;">
@@ -86,7 +88,7 @@
 		<div style="display: flex">
 			<img src="resources/img/news_01.png" style="border: 1px solid #dadada;">
 			<span style="width:350px; height: 300px; border: 1px solid #dadada; margin-left: 50px;">
-				<img src="resources/img/book_img_playLora.png" style="margin: 50px auto;">
+				<img src="resources/img/book_img_playLora.png" style="margin: 50px 85px;">
 			</span>
 		</div>
 	</div>
@@ -176,13 +178,13 @@
 		<img src="resources/img/newproduct.png" style="margin: 20px auto;">
 	</div>
 	<div style="position: relative;width: 1300px; height: 200px; margin: 0 auto;">
-		<span style="position: absolute; left: 0px;z-index: 50; width: 20px; height: 20px; background-color: #ddd;top: 95px;"><i style="font-size: 20px" class="fas fa-chevron-left"></i></span>
-		<span style="position: absolute; right: 0px;z-index: 50; width: 20px; height: 20px; background-color: #ddd;top: 95px;"><i style="font-size: 20px" class="fas fa-chevron-right"></i></span>
+		<span style="position: absolute; left: 0px;z-index: 50; width: 20px; height: 20px;top: 95px;"><i style="font-size: 20px" class="fas fa-chevron-left"></i></span>
+		<span style="position: absolute; right: 0px;z-index: 50; width: 20px; height: 20px;top: 95px;"><i style="font-size: 20px" class="fas fa-chevron-right"></i></span>
 		<ul style="float: left; width: 1300px; margin: 0 auto;">
-			<li style="float: left; margin-left: 20px;"><img src="resources/img/makers.png"></li>
-			<li style="float: left; margin-left: 20px;"><img src="resources/img/mdx.png"></li>
-			<li style="float: left; margin-left: 20px;"><img src="resources/img/newlearn.png"></li>
-			<li style="float: left; margin-left: 20px;"><img src="resources/img/makeblock.png"></li>
+			<li style="float: left; margin-left: 18px;"><img src="resources/img/makers.png"></li>
+			<li style="float: left; margin-left: 18px;"><img src="resources/img/mdx.png"></li>
+			<li style="float: left; margin-left: 18px;"><img src="resources/img/newlearn.png"></li>
+			<li style="float: left; margin-left: 18px;"><img src="resources/img/makeblock.png"></li>
 		</ul>
 	</div>
 	<%@ include file="include/footer.jsp" %>

@@ -7,21 +7,21 @@ pageEncoding="UTF-8"%>
 	}
 	footer > div{
 	}
-	table{
+	#footer_table{
 		border-collapse: collapse;
 		margin: 20px;
 	}
-	table tr:first-child td{
+	#footer_table tr:first-child td{
 		border-left: 1px solid #ddd;
 		border-right: 1px solid #ddd;
 	}
-	table tr:first-child td:first-child{
+	#footer_table tr:first-child td:first-child{
 		border-left: none;
 	}
-	table tr:first-child td:last-child{
+	#footer_table tr:first-child td:last-child{
 		border-right: none;
 	}
-	table td{
+	#footer_table td{
 		color: #999;
 		font-size: 12px;
 		padding: 0px 10px;
@@ -36,7 +36,7 @@ pageEncoding="UTF-8"%>
 	<footer style="height: 200px; display: flex;">
 		<div style="width: 20%; min-width: 0%;"></div>
 		<div style="min-width: 740px;">
-			<table>
+			<table id="footer_table">
 				<tr>
 					<td>회사소개</td>
 					<td>제휴제안</td>

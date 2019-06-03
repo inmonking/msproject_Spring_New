@@ -46,7 +46,7 @@ pageEncoding="UTF-8"%>
 					<c:choose>
 						<c:when test="${empty sessionScope.loginUser}">
 						<li id="login" style="cursor: pointer;">로그인</li>
-						<li><a href="${path}/constract.ms">회원가입</a></li>
+						<li><a href="${path}/member/constract.ms">회원가입</a></li>
 						</c:when>
 						<c:otherwise>
 						<li id="loginInfo">

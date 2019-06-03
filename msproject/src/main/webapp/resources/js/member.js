@@ -109,12 +109,7 @@ $(document).ready(function() {
 	$('#uid').focus(function(event) {
 		$(this).parent().next().css('left', '0px');
 		$(this).keyup(function(event) {
-			valReg($(this),idReg);
-			if(idReg.test($(this).val())){
-				idBool = true;
-			}else{
-				idBool = false;
-			}
+			IdReg($(this),idReg);
 		});
 	});
 	$('#uid').blur(function(event) {
@@ -203,6 +198,32 @@ $(document).ready(function() {
 		}else if(regVal.test(typeVal.val())){
 			typeVal.parent().next().css('background-color', 'green');
 		}
+	}
+	function IdReg(typeVal, regVal){
+		$.ajax({
+			type: "post",
+			url: "idcheck",
+			data: "id="+typeVal.val(),
+			dataType: "json",
+			success: function(data){
+				if(data == "1"){
+					typeVal.parent().next().css('background-color', 'tomato');
+					idBool = false;
+				}else if(typeVal.val()==''){
+					typeVal.parent().next().css('background-color', '#4374D9');
+					idBool = false;
+				}else if(!regVal.test(typeVal.val())){
+					typeVal.parent().next().css('background-color', 'tomato');
+					idBool = false;
+				}else if(regVal.test(typeVal.val())){
+					typeVal.parent().next().css('background-color', 'green');
+					idBool = true;
+				}
+			},
+			error: function(){
+				alert("System error");
+			}
+		});
 	}
 });
 document.addEventListener('keydown', function(event) {

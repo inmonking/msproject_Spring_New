@@ -1,4 +1,5 @@
-			$(document).ready(function() {
+var onloadPage = true;			
+	$(document).ready(function() {
 			var slidedelay = 4000;	// 슬라이드 속도
 
 			var count = 0;
@@ -14,14 +15,6 @@
 
 			var rightslideinv;
 			var leftslideinv;
-
-			if($('.inmon_carosel').is('.rightslide')){
-				rightslideinv = setInterval(function(){right_slide();},slidedelay);
-			}else if($('.inmon_carosel').is('.leftslide')){
-				leftslideinv = setInterval(function(){leftslide();},slidedelay);
-			}else{
-				clearTimeout();
-			}
 			
 			$('.carocel_slide').css({width: slideMaxSize+'px',height: cardHeight+'px'});
 			$('.carosel_slide_card').css({width: cardSize+'px', height : cardHeight+'px'});
@@ -39,6 +32,21 @@
 			$('.carosel_nav_menu').click(function(event) {
 				target_slide($(this).index());
 			});
+			
+			if(onloadPage){
+				onloadPage = false;
+				start_slide();
+			}
+			
+			function start_slide(){
+				if($('.inmon_carosel').is('.rightslide')){
+					rightslideinv = setInterval(function(){right_slide();},slidedelay);
+				}else if($('.inmon_carosel').is('.leftslide')){
+					leftslideinv = setInterval(function(){leftslide();},slidedelay);
+				}else{
+					clearTimeout();
+				}
+			}
 			function target_slide(num){
 				var indexcount = num;
 				var temp = indexcount;
