@@ -3,8 +3,8 @@ pageEncoding="UTF-8"%>
 <%@ include file="common.jsp" %>
 <!DOCTYPE html>
 <html>
-	<link rel="stylesheet" href="${path}/css/common.css?v=1">
-	<link rel="stylesheet" href="${path}/css/header.css?v=1">
+	<link rel="stylesheet" href="resources/css/common.css?v=1">
+	<link rel="stylesheet" href="resources/css/header.css?v=1">
 <body>
 <div class="headerbody">
 	<div id="modal_login" style="width: 100%; height: 100%; position: fixed; background-color: rgba(50,50,50,0.8); z-index: 1000; display: none; justify-content: center; align-items: center;">

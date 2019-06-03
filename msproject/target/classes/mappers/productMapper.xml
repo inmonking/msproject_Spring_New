@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="pdt">
+	<!-- 베스트상품 목록 -->
+	<select id="bestList" resultType="com.msproject.domain.product.ProductDTO">
+		<![CDATA[
+		select * from (select * from tbl_product order by p_good desc)
+		where rownum <= 8
+		]]>
+	</select>
+	<!-- 신상품 목록 -->
+	<select id="newList" resultType="com.msproject.domain.product.ProductDTO">
+		<![CDATA[
+		select * from (select * from tbl_product order by p_indate desc)
+		where rownum <= 8
+		]]>
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
