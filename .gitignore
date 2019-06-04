@@ -1,5 +1,6 @@
 pom.properties
 MANIFEST.MF
+root-context.xml
 
 # Compiled class file
 *.class
