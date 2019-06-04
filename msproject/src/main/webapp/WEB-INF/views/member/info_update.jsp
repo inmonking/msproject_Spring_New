@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ include file="../include/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +16,6 @@
 		body, h1, ul, p, h3 { margin:0; padding: 0;}
 		body{background: #f5f6f7;}
 		ul{list-style: none;}
-		a{text-decoration: none; color: inherit;}
 
 		.naver_logo{font-size: 2em;}
 		.header, .container, .footer{
@@ -117,7 +118,7 @@
 			padding: 11px 14px;
 		}
 		.sel{
-			background: #fff url('img/sel_arr.gif') 100% 50% no-repeat;
+			background: #fff url('${path}/resources/img/sel_arr.gif') 100% 50% no-repeat;
 			width: 100%;
 			height: 29px;
 			font-size: 15px;
@@ -192,7 +193,6 @@
 	</style>
 </head>
 <body>
-	<%@ include file="../include/header.jsp" %>
 
 	<section>
 		<form class="update_form" method="POST" action="infoUpdatePlay.ms">
@@ -204,7 +204,7 @@
 								<label for="id">아이디</label>
 							</h3>
 							<span class="ps_box int_id">
-								<input type="text" id="id" name="id" class="int" maxlength="20" value="${sessionScope.loginUser.id }">
+								<input type="text" id="id" name="id" class="int" maxlength="20" value="${one.id }">
 							</span>
 							<span class="error_next_box">필수 정보입니다.	</span>
 						</div>
@@ -240,7 +240,7 @@
 								<label for="name">이름</label>
 							</h3>
 							<span class="ps_box">
-								<input type="text" id="name" name="name" class="int" maxlength="20" value="${sessionScope.loginUser.name }">
+								<input type="text" id="name" name="name" class="int" maxlength="20" value="${one.name }">
 							</span>
 							<span class="error_next_box">필수 정보입니다.	</span>
 						</div>
@@ -253,7 +253,7 @@
 						<div class="bir_wrap">
 							<div class="bir_yy">
 								<span class="ps_box">
-									<input type="text" id="yy" name="birth_year" placeholder="년(4자)" class="int" maxlength="4" value="${sessionScope.loginUser.birth_year }">
+									<input type="text" id="yy" name="birth_year" placeholder="년(4자)" class="int" maxlength="4" value="${one.birth_year }">
 								</span>
 							</div>
 							<div class="bir_mm">
@@ -277,7 +277,7 @@
 							</div>
 							<div class="bir_dd">
 								<span class="ps_box">
-									<input type="text" id="dd" name="birth_day" placeholder="일" class="int" maxlength="2" value="${sessionScope.loginUser.birth_day }">
+									<input type="text" id="dd" name="birth_day" placeholder="일" class="int" maxlength="2" value="${one.birth_day }">
 								</span>
 							</div>
 						</div>
@@ -286,7 +286,7 @@
 								<label for="phone">핸드폰 주소</label>
 							</h3>
 							<span class="ps_box">
-								<input type="text" id="phone" name="phone" class="int" maxlength="30" value="${sessionScope.loginUser.phone }" >
+								<input type="text" id="phone" name="phone" class="int" maxlength="30" value="${one.phone }" >
 							</span>
 							<span class="error_next_box">필수 정보입니다.	</span>
 						</div>
@@ -325,7 +325,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			var month = "${sessionScope.loginUser.birth_month}";
+			var month = "${one.birth_month}";
 			$('#mm').children('option').eq(month).attr('selected', 'selected');
 
 			$('.btn_agree').click(function(event) {

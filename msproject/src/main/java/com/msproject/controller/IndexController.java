@@ -26,7 +26,6 @@ public class IndexController {
 	public String index(Model model) {
 		log.info(">>>>> index 페이지");
 		HashMap<String, List<ProductDTO>> map = service.productList();
-		log.info(map.toString());
 		model.addAttribute("pLists", map);
 		
 		return "index2";

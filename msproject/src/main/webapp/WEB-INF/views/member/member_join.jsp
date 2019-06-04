@@ -20,7 +20,7 @@
 </head>
 <body>
 	<header></header>
-	<form id="joinform" action="joinPlay.ms" method="post">
+	<form id="joinform" action="${path }/member/create" method="post">
 		<section>
 			<div id="section_head">
 				<p><i class="fas fa-user-friends"></i> 계정을 생성하세요.</p>
@@ -37,7 +37,7 @@
 					<div id="join_name">이름
 						<div id="input_tag">
 							<div>
-								<input id="uname" name="uname" type="text" maxlength="11">
+								<input id="uname" name="name" type="text" maxlength="11">
 							</div>
 							<div id="box1" class="box">
 							</div>
@@ -47,25 +47,29 @@
 					<div id="join_phone"><p id="toggleText">휴대전화</p>
 						<div id="input_tag">
 							<div>
-								<input id="uphone" name="uphone" type="text" maxlength="11">
+								<input id="uphone" name="phone" type="text" maxlength="11">
 							</div>
 							<div id="box2" class="box">
 							</div>
 						</div> 
 					</div>
-					<div class="messageBox" id="phoneMsg">
-						<div>
-							<div>메일주소가 중복됩니다.</div>
-						</div>
+					<!-- <div id="join_Mail"><p id="toggleMail">이메일로 가입하기</p></div> -->
+					<div id="join_Mail">이메일
+						<div id="input_tag">
+							<div>
+								<input id="uemail" name="email" type="text" maxlength="30">
+							</div>
+							<div id="box2" class="box">
+							</div>
+						</div> 
 					</div>
-					<div id="join_Mail"><p id="toggleMail">이메일로 가입하기</p></div>
 					<div class="nextbtn" id="nextbtn_01"><i class="fas fa-arrow-right"></i></div>
 				</div>
 				<div id="join_page02" class="join_page" style="display: none;">
 					<div id="join_id">아이디
 						<div id="input_tag">
 							<div>
-								<input id="uid" name="uid" type="text" maxlength="20">
+								<input id="uid" name="id" type="text" maxlength="20">
 							</div>
 							<div id="box1" class="box">
 							</div>
@@ -79,7 +83,7 @@
 					<div id="join_pw">비밀번호
 						<div id="input_tag">
 							<div>
-								<input id="upw" name="upw" type="password" maxlength="12">
+								<input id="upw" name="pw" type="password" maxlength="12">
 							</div>
 							<div id="box1" class="box">
 							</div>
@@ -112,11 +116,10 @@
 					<div id="birth">생일
 						<div>
 							<span id="birth_yy">
-								<input type="text" name="birth_yy" placeholder="년" maxlength="4">
+								<input type="text" name="birth_year" placeholder="년" maxlength="4">
 							</span>
 							<span id="birth_mm">
-								<select name="birth_mm">
-									<option>월</option>
+								<select name="birth_month">
 									<option>1</option>
 									<option>2</option>
 									<option>3</option>
@@ -132,16 +135,16 @@
 								</select>
 							</span>
 							<span id="birth_dd">
-								<input type="text" name="birth_dd" placeholder="일" maxlength="2">
+								<input type="text" name="birth_day" placeholder="일" maxlength="2">
 							</span>
 						</div>
 					</div>
 					<div id="address">주소
 						<div>
-							<input class="address_num" id="address_postcode" name="address_postcode" type="text" maxlength="5" placeholder="우편번호">
+							<input class="address_num" id="address_postcode" name="zipcode" type="text" maxlength="5" placeholder="우편번호">
 							<div class="address_search" onclick="DaumPostcode()">우편번호 검색</div>
-							<input class="address_detail" id="address_basic" name="address_basic" type="text" placeholder="기본주소">
-							<input class="address_detail" id="address_detail" name="address_detail" type="text" placeholder="상세주소">
+							<input class="address_detail" id="address_basic" name="addr1" type="text" placeholder="기본주소">
+							<input class="address_detail" id="address_detail" name="addr2" type="text" placeholder="상세주소">
 						</div>
 					</div>
 					<button class="submit_btn">가입하기</button>

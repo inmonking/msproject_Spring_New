@@ -8,6 +8,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="idCheck" parameterType="String" resultType="int">
 		select count(id) from tbl_member where id = #{id}
 	</select>
+	<insert id="create" parameterType="com.msproject.domain.member.MemberDTO">
+		insert into tbl_member(idnum, id, pw, name, phone, zipcode, addr1, addr2, birth_year, birth_month, birth_day)
+		values(seq_member.nextval, #{id}, #{pw},#{name}, #{phone}, #{zipcode}, #{addr1}, #{addr2}, #{birth_year}, #{birth_month}, #{birth_day})
+	</insert>
+	<select id="login" parameterType="com.msproject.domain.member.MemberDTO" resultType="String">
+		select name from tbl_member
+		where id = #{id} and pw=#{pw}
+	</select>
+	<select id="viewMember" parameterType="String" resultType="com.msproject.domain.member.MemberDTO">
+		select * from tbl_member
+		where id = #{id}
+	</select>
+	
 </mapper>
 
 

@@ -3,8 +3,8 @@ pageEncoding="UTF-8"%>
 <%@ include file="common.jsp" %>
 <!DOCTYPE html>
 <html>
-	<link rel="stylesheet" href="resources/css/common.css?v=1">
-	<link rel="stylesheet" href="resources/css/header.css?v=1">
+	<link rel="stylesheet" href="${path}/resources/css/common.css?v=1">
+	<link rel="stylesheet" href="${path}/resources/css/header.css?v=1">
 <body>
 <div class="headerbody">
 	<div id="modal_login" style="width: 100%; height: 100%; position: fixed; background-color: rgba(50,50,50,0.8); z-index: 1000; display: none; justify-content: center; align-items: center;">
@@ -44,14 +44,14 @@ pageEncoding="UTF-8"%>
 				<span style="position: absolute; right: 0px;width: 20%;">
 					<ul class="header_ul">
 					<c:choose>
-						<c:when test="${empty sessionScope.loginUser}">
+						<c:when test="${empty sessionScope.name}">
 						<li id="login" style="cursor: pointer;">로그인</li>
 						<li><a href="${path}/member/constract.ms">회원가입</a></li>
 						</c:when>
 						<c:otherwise>
 						<li id="loginInfo">
-							<span>${sessionScope.loginUser.name }</span>
-							(${sessionScope.loginUser.id })
+							<span>${sessionScope.name }</span>
+							(${sessionScope.userid })
 						</li>
 						<li><a href="#" class="logout_btn">로그아웃</a></li>
 						</c:otherwise>
@@ -70,7 +70,7 @@ pageEncoding="UTF-8"%>
 				</div>
 				<div style="position: absolute; width: 20%; height: inherit; right: 0px; top:10px; display: flex;">
 
-					<div style="width: 240px; font-size: 3em; display: flex;justify-content: center;"><a href="infoUpdate.ms" style="text-align: center;"><i class="fas fa-user"></i><p style="font-size: 12px">마이페이지</p></a></div>
+					<div style="width: 240px; font-size: 3em; display: flex;justify-content: center;"><a href="${path }/member/update" style="text-align: center;"><i class="fas fa-user"></i><p style="font-size: 12px">마이페이지</p></a></div>
 
 					<div style="width: 240px; font-size: 3em; display: flex;justify-content: center;"><a href="" style="text-align: center;"><i class="fas fa-shopping-basket"></i><p style="font-size: 12px">장바구니</p></a></div>
 					<div style="width: 240px; font-size: 3em; display: flex;justify-content: center;"><a href="" style="text-align: center;"><i class="fas fa-truck"></i><p style="font-size: 12px">배송조회</p></a></div>
@@ -145,14 +145,14 @@ pageEncoding="UTF-8"%>
 				}
 				
 				$.ajax({
-					url: '${path}/login.ms',
+					url: '${path}/member/login',
 					type: 'POST',
-					dataType: 'JSON',
+					dataType: 'text',
 					data: "id="+id+"&pw="+pass,
 					success: function(data){
-						if(data.message == "1"){
+						if(data == "1"){
 							location.reload();
-						}else if(data.message == "-1"){
+						}else if(data == "-1"){
 							$('#inputid').focus();
 							$('#err_check_msg').text('회원 아이디 또는 비밀번호가 일치하지 않습니다.')
 											   .css('opacity','1');
@@ -165,10 +165,9 @@ pageEncoding="UTF-8"%>
 			});
 			$('.logout_btn').click(function(event) {
 				$.ajax({
-					url: 'logoutAjax.ms',
+					url: '${path}/member/logout',
 					type: 'POST',
-					dataType: 'json',
-					success: function(data){
+					success: function(){
 						location.reload();
 					},
 					error:function(){

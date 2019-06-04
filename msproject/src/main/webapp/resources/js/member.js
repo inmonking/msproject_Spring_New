@@ -71,19 +71,6 @@ $(document).ready(function() {
 		$(this).parent().next().css('left', '0px');
 		$(this).keyup(function(event) {
 			valReg($(this),phoneReg);
-			if($(this).val()==''){
-				$('#phoneMsg').css('opacity','0');
-				$('#join_Mail').css('top','260px');
-			}else if(phoneReg.test($(this).val())){
-				phoneBool = true;
-				$('#phoneMsg').css('opacity','0');
-				$('#join_Mail').css('top','260px');
-			}else{
-				phoneBool = false;
-				$('#phoneMsg').css('opacity','1');
-				$('#phoneMsg').children('div').children('div').text('잘못된 핸드폰 번호');
-				$('#join_Mail').css('top','280px');
-			}
 		});
 	});
 
@@ -109,13 +96,36 @@ $(document).ready(function() {
 	$('#uid').focus(function(event) {
 		$(this).parent().next().css('left', '0px');
 		$(this).keyup(function(event) {
-			IdReg($(this),idReg);
+			valReg($(this),idReg);
+			
 		});
 	});
 	$('#uid').blur(function(event) {
 		if($(this).val()==''){
 			$(this).parent().next().css('left', '-460px');
 		}
+		idBool = false;
+		$.ajax({
+			type: "post",
+			url: "idcheck",
+			data: "id="+$(this).val(),
+			dataType: "json",
+			success: function(data){
+				if(data == "1"){
+					$(this).parent().next().css('background-color', 'tomato');
+				}else if($(this).val()==''){
+					$(this).parent().next().css('background-color', '#4374D9');
+				}else if(!idReg.test($(this).val())){
+					$(this).parent().next().css('background-color', 'tomato');
+				}else if(idReg.test($(this).val())){
+					$(this).parent().next().css('background-color', 'green');
+					idBool = true;
+				}
+			},
+			error: function(){
+				alert("System error");
+			}
+		});
 	});
 	$('#upw').focus(function(event) {
 		$(this).parent().next().css('left', '0px');
@@ -200,6 +210,7 @@ $(document).ready(function() {
 		}
 	}
 	function IdReg(typeVal, regVal){
+		idBool = false;
 		$.ajax({
 			type: "post",
 			url: "idcheck",
@@ -208,13 +219,10 @@ $(document).ready(function() {
 			success: function(data){
 				if(data == "1"){
 					typeVal.parent().next().css('background-color', 'tomato');
-					idBool = false;
 				}else if(typeVal.val()==''){
 					typeVal.parent().next().css('background-color', '#4374D9');
-					idBool = false;
 				}else if(!regVal.test(typeVal.val())){
 					typeVal.parent().next().css('background-color', 'tomato');
-					idBool = false;
 				}else if(regVal.test(typeVal.val())){
 					typeVal.parent().next().css('background-color', 'green');
 					idBool = true;
