@@ -17,7 +17,7 @@
 <body>
 	<header>
 		<div class="header">
-			<a href="#" class="n_logo">MECAISLAND</a>
+			<a href="#" class="n_logo"><img src="${path }/resources/img/mainlogo.png" style="width: 18% "></a>
 		</div>
 	</header>
 	<section>
