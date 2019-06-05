@@ -13,4 +13,8 @@ public interface MemberService {
 	public boolean login(MemberDTO mDto, HttpSession session);
 	public void logout(HttpSession session);
 	public MemberDTO viewMember(HttpSession session);
+	public String pwCheck(MemberDTO mDto);
+	public void pwUpdate(MemberDTO mDto);
+	public void infoUpdate(MemberDTO mDto);
+	public int delete(MemberDTO mDto);
 }

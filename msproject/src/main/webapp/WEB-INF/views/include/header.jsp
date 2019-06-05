@@ -72,8 +72,8 @@ pageEncoding="UTF-8"%>
 
 					<div style="width: 240px; font-size: 3em; display: flex;justify-content: center;"><a href="${path }/member/update" style="text-align: center;"><i class="fas fa-user"></i><p style="font-size: 12px">마이페이지</p></a></div>
 
-					<div style="width: 240px; font-size: 3em; display: flex;justify-content: center;"><a href="" style="text-align: center;"><i class="fas fa-shopping-basket"></i><p style="font-size: 12px">장바구니</p></a></div>
-					<div style="width: 240px; font-size: 3em; display: flex;justify-content: center;"><a href="" style="text-align: center;"><i class="fas fa-truck"></i><p style="font-size: 12px">배송조회</p></a></div>
+					<div style="width: 240px; font-size: 3em; display: flex;justify-content: center;"><a href="${path }/member/pwupdate" style="text-align: center;"><i class="fas fa-shopping-basket"></i><p style="font-size: 12px">장바구니</p></a></div>
+					<div style="width: 240px; font-size: 3em; display: flex;justify-content: center;"><a href="${path }/member/delete" style="text-align: center;"><i class="fas fa-truck"></i><p style="font-size: 12px">배송조회</p></a></div>
 				</div>
 			</div>
 		</div>

@@ -29,13 +29,28 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public String login(MemberDTO mDto, HttpSession session) {
+	public String login(MemberDTO mDto) {
 		return sqlSession.selectOne("member.login", mDto);
 	}
 
 	@Override
 	public MemberDTO viewMember(String id) {
 		return sqlSession.selectOne("member.viewMember",id);
+	}
+
+	@Override
+	public void pwUpdate(MemberDTO mDto) {
+		sqlSession.update("member.pwUpdate", mDto);		
+	}
+
+	@Override
+	public void infoUpdate(MemberDTO mDto) {
+		sqlSession.update("member.infoUpdate", mDto);
+	}
+
+	@Override
+	public int delete(MemberDTO mDto) {
+		return sqlSession.delete("member.delete", mDto);
 	}
 
 }

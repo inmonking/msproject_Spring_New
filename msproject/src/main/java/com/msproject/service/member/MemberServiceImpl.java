@@ -38,7 +38,7 @@ public class MemberServiceImpl implements MemberService {
 		//		-> session 담음
 		// 3) check가 틀리면 (로그인 실패)
 		// 		-> modal창 경고메시지 출력
-		String name = mDao.login(mDto, session);
+		String name = mDao.login(mDto);
 		boolean result = false;
 		if(name != null) { // 로그인 성공
 			// session에 로그인 정보를 담아야 함
@@ -63,6 +63,38 @@ public class MemberServiceImpl implements MemberService {
 		String id = (String) session.getAttribute("userid");
 		MemberDTO mDto = mDao.viewMember(id);
 		return mDto;
+	}
+
+	@Override
+	public String pwCheck(MemberDTO mDto) {
+		// DB에서 가져온 현재비밀번호와
+		// 사용자가 입력한 현재비밀번호가
+		// 같은지 체크해서
+		// 같으면 1, 틀리면 -1을 view단으로 전송
+		String name = mDao.login(mDto);
+		String result = "-1";
+		log.info(name);
+		if(name!=null) {
+			result = "1";
+		}
+		return result;
+	}
+
+	@Override
+	public void pwUpdate(MemberDTO mDto) {
+		//비밀번호 수정
+		//data: id, pw => mDto
+		mDao.pwUpdate(mDto);
+	}
+
+	@Override
+	public void infoUpdate(MemberDTO mDto) {
+		mDao.infoUpdate(mDto);
+	}
+
+	@Override
+	public int delete(MemberDTO mDto) {
+		return mDao.delete(mDto);		
 	}
 	
 }

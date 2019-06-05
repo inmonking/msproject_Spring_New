@@ -195,7 +195,7 @@
 <body>
 
 	<section>
-		<form class="update_form" method="POST" action="infoUpdatePlay.ms">
+		<form class="update_form" method="POST" action="${path }/member/update">
 			<div class="container">
 				<div class="join_content">
 					<div class="row_group">
@@ -208,30 +208,6 @@
 							</span>
 							<span class="error_next_box">필수 정보입니다.	</span>
 						</div>
-
-						<div class="join_row">
-							<h3 class="join_title">
-								<label for="pswd1">비밀번호</label>
-							</h3>
-							<span class="ps_box int_pass">
-								<input type="password" id="pswd1" name="pswd1" class="int" maxlength="20">
-								<span class="step_url"><i class="fas fa-unlock-alt"></i></span>
-							</span>
-							<span class="error_next_box">
-								필수 정보입니다.
-							</span>
-
-							<h3 class="join_title">
-							<label for="pswd2">비밀번호 재확인</label>
-							</h3>
-							<span class="ps_box int_pass">
-								<input type="password" id="pswd2" name="pswd2" class="int" maxlength="20">
-								<span class="step_url"><i class="fas fa-unlock-alt"></i></span>
-							</span>
-							<span class="error_next_box">
-								필수 정보입니다.
-							</span>
-							</div>
 					</div>
 					
 					<div class="row_group">

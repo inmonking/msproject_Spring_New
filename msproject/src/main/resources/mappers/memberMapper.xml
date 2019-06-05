@@ -20,7 +20,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from tbl_member
 		where id = #{id}
 	</select>
-	
+	<update id="pwUpdate" parameterType="com.msproject.domain.member.MemberDTO">
+		update tbl_member
+		set pw=#{pw}
+		where id=#{id}
+	</update>
+	<update id="infoUpdate" parameterType="com.msproject.domain.member.MemberDTO">
+		update tbl_member
+		set name=#{name},
+			phone=#{phone},
+			birth_year=#{birth_year},
+			birth_month=#{birth_month},
+			birth_day=#{birth_day}
+		where id=#{id}
+	</update>
+	<delete id="delete" parameterType="com.msproject.domain.member.MemberDTO">
+		delete from tbl_member 
+		where id=#{id} and pw=#{pw}
+	</delete>
 </mapper>
 
 

@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<meta charset="UTF-8">
+    
+<%@ include file="../include/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
 	<title></title>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 	<style type="text/css">
@@ -14,7 +16,6 @@
 		body, h1, ul, p, h3 { margin:0; padding: 0;}
 		body{background: #f5f6f7;}
 		ul{list-style: none;}
-		a{text-decoration: none; color: inherit;}
 
 		.naver_logo{font-size: 2em;}
 		.header, .container, .footer{
@@ -36,13 +37,13 @@
 		}
 		.n_logo {
 			display: block;
-			margin: 50px auto 10px;
+			margin: 50px auto;
 			box-sizing: border-box;
 			text-align: center;
 			font-size: 50px;
 		}
 		.join_content {
-			width: 800px;
+			width: 460px;
 			margin: 0 auto;
 		}
 		.row_group{
@@ -117,7 +118,7 @@
 			padding: 11px 14px;
 		}
 		.sel{
-			background: #fff url('img/sel_arr.gif') 100% 50% no-repeat;
+			background: #fff url('${path}/resources/img/sel_arr.gif') 100% 50% no-repeat;
 			width: 100%;
 			height: 29px;
 			font-size: 15px;
@@ -130,12 +131,10 @@
 		.btn_double_area{
 			margin: 30px -5px 0px;
 			overflow: hidden;
-			display: flex;
-			justify-content: center;
 		}
 		.btn_double_area > span{
 			display: block;
-			width: 40%;
+			width: 100%;
 		}
 		.btn_type{
 			width: auto;
@@ -150,6 +149,7 @@
 			color: #fff;
 			border: 1px solid rgba(100,100,100);
 			background-color: rgba(100,100,100);
+			cursor: pointer;
 		}
 
 		#footer *{
@@ -191,81 +191,61 @@
 		#address a:hover{
 			color: #1bcc02;
 		}
-		.point_text{
-			color: dodgerblue;
-		}
-		.join_row{
-			padding: 10px;
-			width: 80%;
-			margin: auto;
-		}
-		.join_row > div{
-			margin: 10px;
-			font-weight: bold;
-		}
 	</style>
 </head>
 <body>
 
-	<header>
-		<div class="header">
-			<a href="#" class="n_logo">MECAISLAND</a>
-		</div>
-		<div style="text-align: center; font-size: 2em; margin: 20px;">
-			<h3>회원탈퇴</h3>
-		</div>
-	</header>
-
 	<section>
-		<form class="join_form" method="POST" action="delete">
+		<form class="update_form" method="POST" action="${path }/member/pwupdate">
 			<div class="container">
 				<div class="join_content">
 					<div class="row_group">
-						<div class="join_row" style="border:2px solid black; width: 800px; height: 200px; border-radius: 10px;">
-							<div style="text-align: center;"><span class="point_text">"${sessionScope.name} 님"</span> 회원 탈퇴시 아래의 조치가 취해집니다.</div>
-							<div>1. 계정정보는 <span class="point_text">"개인 정보 보호 정책"에 따라 60일간 보관(잠김)되며,</span> 60일이 경과된 후에는 모든 개인정보는 완전히 삭제되어 더 이상 복수할 수 없게 됩니다.</div>
-							<div>2. 작성된 게시물은 삭제되지 않으며, 익명처리 후 <span class="point_text">Mecaisland로 소유권이 귀속</span>됩니다.</span></div>
-							<div>3. 게시물 삭제가 필요한 경우에는 관리자에게 문의해 주시기 바랍니다.</div>
-						</div>
-
-						
-					</div>
-					
-					<div class="row_group">
 						<div class="join_row">
 							<h3 class="join_title">
-								<label for="id">아이디</label>
+								<label for="id">기본 비밀번호</label>
 							</h3>
 							<span class="ps_box int_id">
-								<input type="text" id="id" name="id" class="int" maxlength="20" value="${sessionScope.userid}" readonly="readonly" style="background-color: darkgray">
-							</span>
-						</div>
-
-						<div class="join_row">
-							<h3 class="join_title">
-								<label for="name">비밀번호</label>
-							</h3>
-							<span class="ps_box">
-								<input type="password" id="pw" name="pw" class="int" maxlength="20">
+								<input type="password" id="basic_pw" name="basic_pw" class="int" maxlength="20" value="${one.id }">
 							</span>
 							<span class="error_next_box">필수 정보입니다.	</span>
 						</div>
-					</div>
+						<hr>
+						<div class="join_row">
+							<h3 class="join_title">
+								<label for="pswd1">변경 비밀번호</label>
+							</h3>
+							<span class="ps_box int_pass">
+								<input type="password" id="pswd1" name="pswd1" class="int" maxlength="20">
+								<span class="step_url"><i class="fas fa-unlock-alt"></i></span>
+							</span>
+							<span class="error_next_box">
+								필수 정보입니다.
+							</span>
 
-					<div class="btn_double_area">
-						<span>
-							<a href="#" class="btn_type">취소</a>
-						</span>
-						<span>
-							<a class="btn_type btn_submit">탈퇴</a>
-						</span>
+							<h3 class="join_title">
+							<label for="pswd2">비밀번호 재확인</label>
+							</h3>
+							<span class="ps_box int_pass">
+								<input type="password" id="pswd2" name="pw" class="int" maxlength="20">
+								<span class="step_url"><i class="fas fa-unlock-alt"></i></span>
+							</span>
+							<span class="error_next_box">
+								필수 정보입니다.
+							</span>
+							</div>
+							<input type="hidden" value="${sessionScope.userid }" name="id">
+						<div class="btn_double_area">
+							<span>
+								<a class="btn_type btn_agree">정보수정</a>
+							</span>
+						</div>
 					</div>
 				</div>
 			</div>
 		</form>
 	</section>
 
-	<footer style="margin: 50px;">
+	<footer>
 			<div id="footer">
 				<ul>
 					<li><a href="#">이용약관</a></li>
@@ -286,35 +266,42 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			var state = false;
-			$('.btn_submit').click(function(){
-				$(".join_form").submit();
+			
+			$('#basic_pw').blur(function(){
+				var nowId = '${sessionScope.userid }';
+				var nowPw = $(this).val();
+				ajaxPwChack(nowId, nowPw);
 			});
-			$("#pw").keyup(function(event) {
-				var id = "${sessionScope.userid}";
-				var pw = $(this).val();
-				$.ajax({
-					url: 'pwcheck',
-					type: 'POST',
-					dataType: 'json',
-					data: "id="+id+"&pw="+pw,
-					async : false,
-					success: function(data){
-						if(data== "-1"){
-							$('.error_next_box').text('비밀번호가 일치하지 않습니다')
-												.css('color', 'tomato')
-												.css('display', 'block');
-							state = true;
-						}else{
-							$('.error_next_box').text('올바른 비밀번호')
-												.css('color', 'dodgerblue')
-												.css('display', 'block');
-							state = false;
-						}
-					}
-				})
+			
+			$('.btn_agree').click(function(event) {
+				$('.update_form').submit();
 			});
 		});
+		function ajaxPwChack(nowId, nowPw){
+			var return_val = false;
+			$.ajax({
+				url: 'pwcheck?id='+nowId+"&pw="+nowPw,
+				type: 'POST',
+				dataType: 'json',
+				async: false,
+				success: function(data){
+					if(data == "1"){
+						$('.error_next_box').eq(0).text('비밀번호가 일치합니다.')
+										   .css('opacity','1')
+										   .css('display','block');
+						return_val = true;
+					}else{
+						$('.error_next_box').eq(0).text('비밀번호가 불일치합니다.')
+										   .css('opacity','1')
+										   .css('display','block');
+						return_val = false;
+					}
+				},
+				error:function(){
+					alert("system error");
+				}
+			})
+		}
 	</script>
 </body>
 </html>
