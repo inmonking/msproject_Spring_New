@@ -151,7 +151,10 @@ select{
 	top: 255px; 
 	left: 100px;
 }
-
+#idMsg{
+	top: 143px; 
+	left: 100px;
+}
 #pwMsg{
 	top: 243px; 
 	left: 100px;
@@ -260,6 +263,16 @@ select{
 	color: #5D5D5D;
 }
 
+.prevbtn{
+	position: absolute; 
+	bottom: 20px; 
+	left: 20px; 
+	font-size: 40px; 
+	color: #5D5D5D;
+	transition: 1s;
+	cursor: pointer;
+}
+
 .nextbtn{
 	position: absolute; 
 	bottom: 20px; 
@@ -268,7 +281,6 @@ select{
 	color: #5D5D5D;
 	transition: 1s;
 	cursor: pointer;
-	display: none;
 }
 
 #birth{

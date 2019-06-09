@@ -77,7 +77,7 @@
 					</div>
 					<div class="messageBox" id="idMsg">
 						<div>
-							<div>영문,숫자 조합 4~12자로 부탁해요!</div>
+							<div>메시지칸</div>
 						</div>
 					</div>
 					<div id="join_pw">비밀번호
@@ -108,6 +108,7 @@
 							<div>같은 비밀번호를 입력해주세요!</div>
 						</div>
 					</div>
+					<div class="prevbtn" id="prevbtn_01"><i class="fas fa-arrow-left"></i></div>
 					<div class="nextbtn" id="nextbtn_02"><i class="fas fa-arrow-right"></i></div>
 				</div>
 	
@@ -147,7 +148,8 @@
 							<input class="address_detail" id="address_detail" name="addr2" type="text" placeholder="상세주소">
 						</div>
 					</div>
-					<button class="submit_btn">가입하기</button>
+					<div class="prevbtn" id="prevbtn_02"><i class="fas fa-arrow-left"></i></div>
+					<div class="submit_btn">가입하기</div>
 				</div>
 			</div>
 			<div id="info_modal">

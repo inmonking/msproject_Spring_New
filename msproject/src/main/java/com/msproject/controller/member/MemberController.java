@@ -79,7 +79,7 @@ public class MemberController {
 			return "redirect:/";
 		}else {
 			log.info("가입실패");
-			return "member/constract";
+			return "member/index2";
 		}
 	}
 	
@@ -111,7 +111,7 @@ public class MemberController {
 		log.info(">>> 회원수정");
 		MemberDTO mDto = service.viewMember(session);
 		model.addAttribute("one",mDto);
-		return "member/info_update";
+		return "member/index2";
 	}
 	
 	@RequestMapping(value="/update",method = RequestMethod.POST)

@@ -1,10 +1,12 @@
 $(document).ready(function() {
 	var nameReg = RegExp(/^[가-힣]{2,4}$/);
 	var phoneReg = RegExp(/^[0-9]{8,11}$/);
+	var mailReg = RegExp(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i);
 	var idReg = RegExp(/^[A-Za-z]{1}[A-Za-z0-9]{5,19}$/);
 	var pwReg = RegExp(/^[a-zA-Z0-9]{4,12}$/);
 	var nameBool = false;
 	var phoneBool = false;
+	var mailBool = false;
 	var idBool = false;
 	var pwBool = false;
 	var pwreBool = false;
@@ -26,7 +28,18 @@ $(document).ready(function() {
 		pagecount = 3;
 		$('#info_modal').css('z-index', '100');
 		setTimeout($('#info_modal').css('opacity', '1'), 500);
-		
+	});
+	$('#prevbtn_01').click(function(event) {
+		$('#slide').animate({left: '+=576px'});
+		$('#dot1').css('opacity', '1');
+		$('#dot2').css('opacity', '0');
+		pagecount = 1;
+	});
+	$('#prevbtn_02').click(function(event) {
+		$('#slide').animate({left: '+=576px'});
+		$('#dot2').css('opacity', '1');
+		$('#dot3').css('opacity', '0');
+		pagecount = 2;
 	});
 	$('#toggleMail').click(function(event) {
 		if(!mailToggle){
@@ -79,8 +92,21 @@ $(document).ready(function() {
 			$(this).parent().next().css('left', '-460px');
 		}
 	});
+	
+	$('#uemail').focus(function(event){
+		$(this).parent().next().css('left', '0px');
+		$(this).keyup(function(event) {
+			valReg($(this),mailReg);
+		});
+	});
 
-	$('#join_page01').keyup(function(event) {
+	$('#uemail').blur(function(event) {
+		if($(this).val()==''){
+			$(this).parent().next().css('left', '-460px');
+		}
+	});
+	
+/*	$('#join_page01').keyup(function(event) {
 		if(nameBool&&phoneBool){
 			$('#nextbtn_01').css('display', 'block');
 			setTimeout(function(){
@@ -90,42 +116,19 @@ $(document).ready(function() {
 			$('#nextbtn_01').css('opacity', '0');
 			$('#nextbtn_01').css('display', 'none');
 		}
-	});
+	});*/
 
 
 	$('#uid').focus(function(event) {
 		$(this).parent().next().css('left', '0px');
 		$(this).keyup(function(event) {
-			valReg($(this),idReg);
-			
+			IdReg($(this),idReg);
 		});
 	});
 	$('#uid').blur(function(event) {
 		if($(this).val()==''){
 			$(this).parent().next().css('left', '-460px');
 		}
-		idBool = false;
-		$.ajax({
-			type: "post",
-			url: "idcheck",
-			data: "id="+$(this).val(),
-			dataType: "json",
-			success: function(data){
-				if(data == "1"){
-					$(this).parent().next().css('background-color', 'tomato');
-				}else if($(this).val()==''){
-					$(this).parent().next().css('background-color', '#4374D9');
-				}else if(!idReg.test($(this).val())){
-					$(this).parent().next().css('background-color', 'tomato');
-				}else if(idReg.test($(this).val())){
-					$(this).parent().next().css('background-color', 'green');
-					idBool = true;
-				}
-			},
-			error: function(){
-				alert("System error");
-			}
-		});
 	});
 	$('#upw').focus(function(event) {
 		$(this).parent().next().css('left', '0px');
@@ -176,7 +179,7 @@ $(document).ready(function() {
 		}
 	});
 
-	$('#join_page02').keyup(function(event) {
+/*	$('#join_page02').keyup(function(event) {
 		if(idBool&&pwBool){
 			$('#nextbtn_02').css('display', 'block');
 			setTimeout(function(){
@@ -186,8 +189,8 @@ $(document).ready(function() {
 			$('#nextbtn_02').css('opacity', '0');
 			$('#nextbtn_02').css('display', 'none');
 		}
-	});
-
+	});*/
+	
 	$('#info_close').click(function(event) {
 		$('#info_modal').css({
 			'opacity': '0'
@@ -198,7 +201,15 @@ $(document).ready(function() {
 	});
 
 	$(".submit_btn").click(function(event){
-		$("#joinform").submit();
+		console.log(
+		nameBool,
+		phoneBool,
+		mailBool,
+		idBool,
+		pwBool,
+		pwreBool
+		);
+		//$("#joinform").submit();
 	});
 	function valReg(typeVal, regVal){
 		if(typeVal.val()==''){
@@ -219,12 +230,20 @@ $(document).ready(function() {
 			success: function(data){
 				if(data == "1"){
 					typeVal.parent().next().css('background-color', 'tomato');
+					$('#idMsg').css('opacity', '1');
+					$('#idMsg > div').css('width','95px')
+					$('#idMsg > div > div').text('중복되는 아이디');
 				}else if(typeVal.val()==''){
 					typeVal.parent().next().css('background-color', '#4374D9');
+					$('#idMsg').css('opacity', '0');
 				}else if(!regVal.test(typeVal.val())){
 					typeVal.parent().next().css('background-color', 'tomato');
+					$('#idMsg').css('opacity', '1');
+					$('#idMsg > div').css('width','230px')
+					$('#idMsg > div > div').text('20자 미만의 영문과 숫자 조합으로 지어주세요');
 				}else if(regVal.test(typeVal.val())){
 					typeVal.parent().next().css('background-color', 'green');
+					$('#idMsg').css('opacity', '0');
 					idBool = true;
 				}
 			},
