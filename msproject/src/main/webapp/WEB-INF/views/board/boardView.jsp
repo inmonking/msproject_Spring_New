@@ -29,7 +29,7 @@
 </head>
 <body>
 	<%@ include file="../include/header.jsp" %>
-	<script type="text/javascript" src="${path}/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+	<script type="text/javascript" src="${path}/resources/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
 	
 	<div class="viewBody" style="width: 850px;margin: 80px auto 0px; background-color: white; border: 1.5px solid black; border-radius: 10px; padding: 20px">
 		<div><h3 style="font-size: 35px; margin: 10px 0px 20px; font-weight: bold;">게시글 조회</h3></div>
@@ -67,7 +67,7 @@
 						</c:choose>
 					</div>
 					<div style="width: 100%; text-align: center; font-size: 20px;">
-					<c:if test="${!empty sessionScope.loginUser }">
+					<c:if test="${!empty sessionScope.userid }">
 						<div style="border: 1px solid #747474; display: inline-block; border-radius: 50px; width: 40px; height: 40px; display: flex;justify-content: center;line-height: 45px; margin: 0 auto">
 							<span class="fullheart heart_ico"><i class="fas fa-heart"></i></span><span class="emptyheart heart_ico"><i class="far fa-heart"></i></span>
 						</div>
@@ -122,7 +122,7 @@
 					
 					$.ajax({
 						type: "post",
-						url: "replyAdd.ms",
+						url: "${path}/reply/create",
 						data: $("#frm_reply").serialize(), //직렬화
 						contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 						success: function(){
@@ -177,7 +177,7 @@
 				var bno = '${one.bno}';
 				
 				$.ajax({
-					url: "replyRemove.ms",
+					url: "${path}/reply/delete",
 					data: "rno="+rno+"&bno="+bno,
 					success: function(result){
 						comment_list();
@@ -190,9 +190,8 @@
 		});
 		function comment_list(){
 			$.ajax({
-				type: "post",
-				url: "commentlist.ms",
-				data: "bno=${one.bno}",
+				type: "get",
+				url: "${path}/reply/list?bno=${one.bno}",
 				success: function(result){
 					$("#commentList").html(result);
 				}

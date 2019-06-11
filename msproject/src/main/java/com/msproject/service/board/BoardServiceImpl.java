@@ -35,8 +35,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public BoardDTO read(int bno) {
-		// TODO Auto-generated method stub
-		return null;
+		return bDao.read(bno);
 	}
 
 	@Override
@@ -46,8 +45,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public void increaseViewCnt(int bno, HttpSession session) {
-		// TODO Auto-generated method stub
-		
+		bDao.increaseViewCnt(bno, session);
 	}
 
 	@Override

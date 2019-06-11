@@ -41,8 +41,7 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public BoardDTO read(int bno) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne("board.read",bno);
 	}
 
 	@Override
@@ -58,8 +57,16 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public void increaseViewCnt(int bno, HttpSession session) {
-		// TODO Auto-generated method stub
-
+		long update_time = 0;
+		int result = 0;
+		if(session.getAttribute("update_time_"+bno) != null) {
+			update_time = (long)session.getAttribute("update_time_"+bno);
+		}
+		long current_time = System.currentTimeMillis();
+		if(current_time - update_time > 24*60*60*1000) {
+			result = sqlSession.update("board.viewCnt", bno);
+			session.setAttribute("update_time_"+bno, current_time);
+		}
 	}
 
 	@Override

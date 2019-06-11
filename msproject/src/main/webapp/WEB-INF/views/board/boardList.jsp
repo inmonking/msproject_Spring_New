@@ -147,7 +147,7 @@
 					<fmt:formatDate value="${bDto.regdate }" pattern="yyyy-MM-dd" var="regdate"/>
 					<tr>
 						<td>${bDto.bno }</td>
-						<td><a href="${path }/boardView.ms?bno=${bDto.bno}"><span>${bDto.title }</span></a>
+						<td><a href="${path }/board/view?bno=${bDto.bno}"><span>${bDto.title }</span></a>
 						<c:if test="${bDto.replycnt > 0 }">
 							<span class="board_reply_cnt">${bDto.replycnt }</span>
 						</c:if>
@@ -218,6 +218,7 @@
 		var sort_option = '${map.sort_option}';
 
 		$(document).ready(function() {
+			console.log(search_option);
 			if('${map.sort_option}'=='new'){
 				$('#board_sort a:nth-child(1)').css('background-color','#5D5D5D')
 												.css('color', 'white');

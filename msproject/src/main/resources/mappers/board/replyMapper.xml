@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="reply">
+	<select id="list" parameterType="int" resultType="com.msproject.domain.board.ReplyDTO">
+		select rno, bno, content, writer, r.regdate 
+		from tbl_reply r, tbl_member m
+		where r.writer = m.id
+		and bno = #{bno}
+		order by rno
+	</select>
+	<insert id="create" parameterType="com.msproject.domain.board.ReplyDTO">
+		insert into tbl_reply(rno, content, writer, bno)
+		values(seq_reply.nextval, #{content}, #{writer}, #{bno})	
+	</insert>
+	<delete id="delete" parameterType="com.msproject.domain.board.ReplyDTO">
+		delete from tbl_reply
+		where bno = #{bno} and rno = #{rno}
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

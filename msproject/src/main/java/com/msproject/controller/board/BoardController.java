@@ -4,11 +4,14 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.msproject.domain.board.BoardDTO;
@@ -50,10 +53,20 @@ public class BoardController {
 		map.put("pager", pager);
 		map.put("sort_option", sort_option);
 		map.put("keyword",keyword);
+		map.put("search_option", search_option);
 		
 		mav.setViewName("board/boardList");
 		mav.addObject("map",map);
 		
 		return mav;
+	}
+	
+	//게시글 1건(상세게시글) 출력
+	@RequestMapping(value = "view", method = RequestMethod.GET)
+	public String view(int bno, Model model,HttpSession session) {
+		service.increaseViewCnt(bno, session);
+		BoardDTO bDto = service.read(bno);
+		model.addAttribute("one", bDto);
+		return "board/boardView";
 	}
 }

@@ -64,6 +64,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from tbl_board b, tbl_member m
 		<include refid="search"/>
 	</select>
+	<select id="read" parameterType="int" resultType="com.msproject.domain.board.BoardDTO">
+		select * from tbl_board
+		where bno = #{bno}
+	</select>
+	<update id="viewCnt" parameterType="int">
+		update tbl_board
+		set viewcnt = viewcnt+1
+		where bno = #{bno}
+	</update>
 </mapper>
 
 

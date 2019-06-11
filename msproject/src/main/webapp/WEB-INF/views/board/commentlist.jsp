@@ -47,7 +47,7 @@
 		
 	<c:if test="${replyList.size()<1}">댓글이 없습니다.</c:if>
 	<c:forEach items="${replyList }" var="replyview">
-		<c:if test="${sessionScope.loginUser.id == replyview.writer }">
+		<c:if test="${sessionScope.userid == replyview.writer }">
 			<div class="reply_body_user">
 				<span>${replyview.writer }</span>
 				<span style="float: right;">${replyview.regdate}</span>
@@ -55,7 +55,7 @@
 				<div class="reply_content">${replyview.content}</div>
 			</div>
 		</c:if>
-		<c:if test="${sessionScope.loginUser.id != replyview.writer }">
+		<c:if test="${sessionScope.userid != replyview.writer }">
 			<div class="reply_body_viewer">
 				<span>${replyview.writer }</span>
 				<span style="float: right;">${replyview.regdate}</span>
@@ -66,26 +66,28 @@
 	
 		<hr style="border: 1px solid darkgray">
 		<c:choose>
-			<c:when test="${!empty sessionScope.loginUser }">
+			<c:when test="${!empty sessionScope.userid }">
 			<form action="replyAdd.ms" method="post" name="frm_reply" id="frm_reply" class="frm_reply">
 				<div style="width:700px; border:1px solid mediumseagreen; border-top:10px solid mediumseagreen; padding: 10px; border-radius: 5px; margin-bottom: 20px; box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19); margin-left: 125px">
-					<span id="reply_writer">${sessionScope.loginUser.id}</span>
-					<textarea name="re_textarea" id="replyInsert" style="width: 690px; border:1px solid #747474; margin-top: 10px; padding: 15px 5px; border-radius: 5px;"></textarea>
+					<span id="reply_writer">${sessionScope.userid}</span>
+					<textarea name="content" id="replyInsert" style="width: 690px; border:1px solid #747474; margin-top: 10px; padding: 15px 5px; border-radius: 5px;"></textarea>
 					<script type="text/javascript">
 						var oEditors = [];
 						nhn.husky.EZCreator.createInIFrame({
 							oAppRef: oEditors,
 						 	elPlaceHolder: "replyInsert",
-						 	sSkinURI: "<%=request.getContextPath()%>/smarteditor/SmartEditor2Skin.html",
-						 	fCreator: "createSEditor2"
+						 	sSkinURI: "<%=request.getContextPath()%>/resources/smarteditor/SmartEditor2Skin.html",
+						 	fCreator: "createSEditor2",
+						 	htParams: {fOnBeforeUnload : function(){}}
+						 	/* 에디터 내용 변경 경고창 끄기 */
 						});
 					</script>
 					<div style="text-align: right;">
 						<span id="replyBtn" style="background-color: mediumseagreen;text-align: center;padding: 6px; border-radius: 10px; color: white; font-size: 13px; cursor: pointer; user-select:none">댓글 쓰기</span>
 					</div>
 				</div>
-				<input type="hidden" name="re_writer" value="${sessionScope.loginUser.id }">
-				<input type="hidden" id="re_bno" name="re_bno">
+				<input type="hidden" name="writer" value="${sessionScope.userid }">
+				<input type="hidden" id="re_bno" name="bno">
 			</form>
 			</c:when>
 			<c:otherwise>
