@@ -97,7 +97,7 @@ pageEncoding="UTF-8"%>
 					<li>전선/케이블</li>
 					<li>버튼/스위치</li>
 					<li>커넥터</li>
-					<li>자유게시판</li>
+					<li><a href="${path }/board/list">자유게시판</a></li>
 				</ul>
 			</div>	
 		</div>

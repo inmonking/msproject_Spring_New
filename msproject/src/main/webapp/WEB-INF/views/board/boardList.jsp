@@ -140,7 +140,7 @@
 					<th style="width: 60px">조회수</th>
 					<th style="width: 60px">첨부</th>
 				</tr>
-				<c:forEach items="${list}" var="bDto">
+				<c:forEach items="${map.list}" var="bDto">
 					<!-- 현재시간 구하기 -->
 					<jsp:useBean id="now" class="java.util.Date"/>
 					<fmt:formatDate value="${now }" pattern="yyyy-MM-dd" var="today"/>
@@ -176,18 +176,18 @@
 		<div style="height: 29px;margin-top: 10px">
 			<div style="display: flex; float: right;">
 				<select id="selsearch" style="height: 29px; width: 100px; border-radius: 20px;border: 1px solid lightgray; outline:none; box-sizing: border-box; font-weight: bold; user-select: none;">
-					<option value="1">제목</option>
-					<option value="2">내용</option>
-					<option value="3">제목+내용</option>
-					<option value="4">작성자</option>
+					<option value="title">제목</option>
+					<option value="content">내용</option>
+					<option value="all">제목+내용</option>
+					<option value="writer">작성자</option>
 				</select>
 				<input id="search_board" style="border-radius: 20px;height: 29px; width: 200px; border: 1px solid lightgray; outline:none; padding-left: 8px; box-sizing: border-box; margin-left: 10px; font-weight: bold" type="text" name="" placeholder="검색할 값을 입력하세요.">
 				<span id="search_btn" style="height: 29px; width: 60px; background-color: orange; line-height: 29px; text-align: center; border-radius: 20px; color: white;margin-left: 10px;font-weight: bold; user-select: none; cursor: pointer;">검색</span>
 			</div>
 		</div>
 		<div class="page_num" style="text-align: center; margin-top: 10px">
-			<c:if test="${pageMaker.prev }">
-				<a onclick="movePage(${pageMaker.criDto.page-5})">
+			<c:if test="${map.pager.curBlock > 1}">
+				<a onclick="movePage(${map.pager.blockBegin-10})">
 					<span class="page_detail">&laquo;</span>
 				</a>
 				<a onclick="movePage(1)">
@@ -197,37 +197,37 @@
 					<span class="page_detail">...</span>
 				</a>
 			</c:if>
-			<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
-				<a onclick="movePage(${idx})"><span class="page_detail <c:out value="${pageMaker.criDto.page == idx ? 'active':'' }"/>">${idx}</span></a>
+			<c:forEach begin="${map.pager.blockBegin }" end="${map.pager.blockEnd }" var="idx">
+				<a onclick="movePage(${idx})"><span class="page_detail <c:out value="${map.pager.curPage == idx ? 'active':'' }"/>">${idx}</span></a>
 			</c:forEach>
-			<c:if test="${pageMaker.next }">
+			<c:if test="${map.pager.curBlock < map.pager.totBlock }">
 				<a><span class="page_detail">...</span></a>
-				<a onclick="movePage(${pageMaker.finalPage})">
-					<span class="page_detail">${pageMaker.finalPage}</span>
+				<a onclick="movePage(${map.pager.totPage})">
+					<span class="page_detail">${map.pager.totPage}</span>
 				</a>
-				<a onclick="movePage(${pageMaker.criDto.page+5})">
+				<a onclick="movePage(${map.pager.blockEnd+1})">
 					<span class="page_detail">&raquo;</span>
 				</a>
 			</c:if>
 		</div>
 	</div>
 	<script type="text/javascript">
-		var page = '${pageMaker.criDto.page}';
-		var search_option = '${search_option}';
-		var keyword = '${keyword}';
-		var sort_type = '${sort_type}';
+		var page = '${map.pager.curPage}';
+		var search_option = '${map.search_option}';
+		var keyword = '${map.keyword}';
+		var sort_option = '${map.sort_option}';
 
 		$(document).ready(function() {
-			if('${sort_type}'=='new'){
+			if('${map.sort_option}'=='new'){
 				$('#board_sort a:nth-child(1)').css('background-color','#5D5D5D')
 												.css('color', 'white');
-			}else if('${sort_type}'=='good'){
+			}else if('${map.sort_option}'=='good'){
 				$('#board_sort a:nth-child(2)').css('background-color','#5D5D5D')
 				.css('color', 'white');
-			}else if('${sort_type}'=='reply'){
+			}else if('${map.sort_option}'=='reply'){
 				$('#board_sort a:nth-child(3)').css('background-color','#5D5D5D')
 				.css('color', 'white');
-			}else if('${sort_type}'=='view'){
+			}else if('${map.sort_option}'=='view'){
 				$('#board_sort a:nth-child(4)').css('background-color','#5D5D5D')
 				.css('color', 'white');
 			}
@@ -260,7 +260,7 @@
 			});
 
 			$('#board_sort a').click(function(event) {
-				sort_type = $(this).attr('value');
+				sort_option = $(this).attr('value');
 				moveURL();
 			});
 			
@@ -271,7 +271,7 @@
 			moveURL();
 		}
 		function moveURL(){
-			location.href = "${path}/boardList.ms?page="+page+"&sort_type="+sort_type+"&keyword="+keyword+"&search_option="+search_option;
+			location.href = "${path}/board/list?curPage="+page+"&sort_option="+sort_option+"&keyword="+keyword+"&search_option="+search_option;
 		}
 	</script>
 </body>

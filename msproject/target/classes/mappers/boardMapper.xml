@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="board">
+	<!-- 게시글 목록 출력 -->
+	<select id="listAll" resultType="com.msproject.domain.board.BoardDTO">
+		<include refid="paging_header"/>
+			select bno, title, content, writer, m.id, viewcnt, replycnt, goodcnt, b.regdate
+			from tbl_board b, tbl_member m
+			<include refid="search"/>
+			<if test = "sort_option == 'new'">
+				order by bno desc
+			</if>
+			<if test = "sort_option == 'good'">
+				order by goodcnt desc, bno desc
+			</if>
+			<if test = "sort_option == 'reply'">
+				order by replycnt desc, bno desc
+			</if>
+			<if test = "sort_option == 'view'">
+				order by viewcnt desc, bno desc
+			</if>
+			<include refid="paging_footer"/>
+	</select>
+	<sql id="paging_header">
+		select *
+		from (
+			select rownum as rnum, A.*
+			from (
+	</sql>
+	<sql id="paging_footer">
+			) A
+		)where rnum between #{start} and #{end}
+	</sql>
+	<sql id="search">
+		<choose>
+			<when test="search_option != 'all'">
+					where b.writer = m.id
+				<if test="search_option == 'title'">
+					and title like #{keyword}
+				</if>
+				<if test="search_option == 'content'">
+					and content like #{keyword}
+				</if>
+				<if test="search_option == 'writer'">
+					and writer like #{keyword}
+				</if>
+			</when>
+			<otherwise>
+				where b.writer = m.id
+				and (writer like #{keyword}
+					or title like #{keyword}
+					or content like #{keyword})
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<!-- 레코드 갯수 계산 -->
+	<select id = "countArticle" resultType="int">
+		select count(*)
+		from tbl_board b, tbl_member m
+		<include refid="search"/>
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
