@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,20 +40,11 @@ public class ReplyContoller {
 	@RequestMapping(value = "create", method = RequestMethod.POST)
 	public void create(ReplyDTO rDto) {
 		service.create(rDto);
-		
-		int bno = rDto.getBno();
-		int count = service.replycount(rDto.getBno());
-		bservice.replyCountUpdate(bno, count);
-		
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "delete", method = RequestMethod.GET)
 	public void delete(ReplyDTO rDto) {
 		service.delete(rDto);
-		
-		int bno = rDto.getBno();
-		int count = service.replycount(rDto.getBno());
-		bservice.replyCountUpdate(bno, count);
 	}
 }

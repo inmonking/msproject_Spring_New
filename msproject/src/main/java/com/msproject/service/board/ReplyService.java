@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import com.msproject.domain.board.ReplyDTO;
 
-
 public interface ReplyService {
 	public List<ReplyDTO> list(int bno);
 	public void create(ReplyDTO rDto);
