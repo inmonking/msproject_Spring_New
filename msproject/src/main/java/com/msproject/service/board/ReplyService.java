@@ -11,4 +11,5 @@ public interface ReplyService {
 	public List<ReplyDTO> list(int bno);
 	public void create(ReplyDTO rDto);
 	public void delete(ReplyDTO rDto);
+	public int replycount(int bno);
 }

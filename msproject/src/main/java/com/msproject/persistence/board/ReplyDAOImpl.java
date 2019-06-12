@@ -1,5 +1,6 @@
 package com.msproject.persistence.board;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -29,4 +30,9 @@ public class ReplyDAOImpl implements ReplyDAO {
 		sqlSession.delete("reply.delete", rDto);
 	}
 
+	@Override
+	public int replycount(int bno) {
+		return sqlSession.selectOne("reply.replycount", bno);
+	}
+	
 }

@@ -69,6 +69,8 @@
 				oEditors.getById["contentInsert"].exec("UPDATE_CONTENTS_FIELD",[]);
 				var title = $.trim($("#title").val());
 				var content = $("#contentInsert").val();
+				var text = content.replace(/[<][^>]*[>]/gi,"");
+				alert(text);
 				if(title == ""){
 					alert('제목이 있어야 합니다.');
 					return false;

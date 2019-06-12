@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.msproject.domain.board.ReplyDTO;
+import com.msproject.service.board.BoardService;
 import com.msproject.service.board.ReplyService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,8 @@ public class ReplyContoller {
 
 	@Inject
 	private ReplyService service;
+	@Inject
+	private BoardService bservice;
 	
 	@RequestMapping(value="list", method = RequestMethod.GET)
 	public String listAll(int bno, Model model) {
@@ -36,11 +39,20 @@ public class ReplyContoller {
 	@RequestMapping(value = "create", method = RequestMethod.POST)
 	public void create(ReplyDTO rDto) {
 		service.create(rDto);
+		
+		int bno = rDto.getBno();
+		int count = service.replycount(rDto.getBno());
+		bservice.replyCountUpdate(bno, count);
+		
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "delete", method = RequestMethod.GET)
 	public void delete(ReplyDTO rDto) {
 		service.delete(rDto);
+		
+		int bno = rDto.getBno();
+		int count = service.replycount(rDto.getBno());
+		bservice.replyCountUpdate(bno, count);
 	}
 }

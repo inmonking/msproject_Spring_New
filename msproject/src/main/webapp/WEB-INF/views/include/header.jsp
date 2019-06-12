@@ -181,7 +181,7 @@ pageEncoding="UTF-8"%>
 				
 			});
 			$('#main_menu > li:nth-child(12)').click(function(){
-				location.href = "${path}/boardList.ms";
+				location.href = "${path }/board/list";
 			});
 		});
 	</script>

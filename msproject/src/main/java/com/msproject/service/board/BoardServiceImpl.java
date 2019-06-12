@@ -53,4 +53,9 @@ public class BoardServiceImpl implements BoardService {
 		return bDao.countArticle(search_option, keyword);
 	}
 
+	@Override
+	public void replyCountUpdate(int bno, int count) {
+		bDao.replyCountUpdate(bno, count);
+	}
+
 }

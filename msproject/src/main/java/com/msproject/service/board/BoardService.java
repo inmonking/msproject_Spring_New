@@ -17,4 +17,5 @@ public interface BoardService {
 	public void increaseViewCnt(int bno, HttpSession session);
 	//레코드 갯수 계산
 	public int countArticle(String search_option, String keyword);
+	public void replyCountUpdate(int bno, int count);
 }

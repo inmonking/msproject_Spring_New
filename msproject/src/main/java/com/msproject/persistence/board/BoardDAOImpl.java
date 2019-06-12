@@ -77,4 +77,12 @@ public class BoardDAOImpl implements BoardDAO {
 		return sqlSession.selectOne("board.countArticle",map);
 	}
 
+	@Override
+	public void replyCountUpdate(int bno, int count) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("bno", bno);
+		map.put("count", count);
+		sqlSession.update("board.replyCountUpdate", map);
+	}
+
 }

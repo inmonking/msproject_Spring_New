@@ -73,6 +73,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		set viewcnt = viewcnt+1
 		where bno = #{bno}
 	</update>
+	<update id="replyCountUpdate" parameterType="hashmap">
+		update tbl_board
+		set REPLYCNT = #{count}
+		where bno = #{bno}
+	</update>
 </mapper>
 
 
