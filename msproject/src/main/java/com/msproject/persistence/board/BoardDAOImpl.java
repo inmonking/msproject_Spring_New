@@ -23,20 +23,17 @@ public class BoardDAOImpl implements BoardDAO {
 	
 	@Override
 	public void create(BoardDTO bDto) {
-		// TODO Auto-generated method stub
-
+		sqlSession.insert("board.create", bDto);
 	}
 
 	@Override
 	public void update(BoardDTO bDto) {
-		// TODO Auto-generated method stub
-
+		sqlSession.update("board.update", bDto);
 	}
 
 	@Override
 	public void delete(int bno) {
-		// TODO Auto-generated method stub
-
+		sqlSession.update("board.delete", bno);
 	}
 
 	@Override
@@ -83,6 +80,11 @@ public class BoardDAOImpl implements BoardDAO {
 		map.put("bno", bno);
 		map.put("count", count);
 		sqlSession.update("board.replyCountUpdate", map);
+	}
+
+	@Override
+	public int lastBno() {
+		return sqlSession.selectOne("board.lastbno");
 	}
 
 }

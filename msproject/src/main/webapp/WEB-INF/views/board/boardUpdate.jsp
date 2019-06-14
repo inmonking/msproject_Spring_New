@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="../include/header.jsp" %>
+<c:if test="${sessionScope.userid == null }">
+	<script>
+		alert("로그인 하신 후 사용하세요.");
+		location.href="${path}/board/list?message=nologin";
+	</script>
+</c:if>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,11 +29,10 @@
 </style>
 </head>
 <body>
-<%@ include file="../include/header.jsp" %>
-<c:if test="${sessionScope.loginUser.id == one.writer }">
-<script type="text/javascript" src="${path}/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+<c:if test="${sessionScope.userid == one.writer }">
+<script type="text/javascript" src="${path}/resources/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
 	<div class="viewBody" style="width: 850px;height: ;margin: 80px auto 100px; background-color: white; border: 1.5px solid black; border-radius: 10px; padding: 20px">
-		<form action="updatePlay.ms" id="frm_body" method="post" enctype="multipart/form-data">
+		<form action="update" id="frm_body" method="post">
 		<div><h3 style="font-size: 35px; margin: 10px 0px 20px; font-weight: bold;">게시글 수정</h3></div>
 		<div style="width: 800px; margin:0 auto; border-radius: 10px 10px 0px 0px; overflow: hidden;">
 			<div style="height: 40px; width: 100%; color: white; background-color:#747474; border-bottom: 1px solid lightgray">
@@ -42,7 +48,7 @@
 						nhn.husky.EZCreator.createInIFrame({
 							oAppRef: oEditors,
 						 	elPlaceHolder: "contentInsert",
-						 	sSkinURI: "<%=request.getContextPath()%>/smarteditor/SmartEditor2Skin.html",
+						 	sSkinURI: "<%=request.getContextPath()%>/resources/smarteditor/SmartEditor2Skin.html",
 						 	fCreator: "createSEditor2"
 						});
 					</script>
@@ -63,7 +69,7 @@
 								</c:otherwise>
 							</c:choose>
 					</div>
-					<input type="file" name="uploadfile" id="uploadfile" style="display: none;">
+					<input type="file" name="filename" id="uploadfile" style="display: none;">
 					<input id="btn-file" type="button" value="파일선택" style="padding: 4px; border-radius: 5px; box-shadow: none; outline: none; border: none;">
 					<span id="file_name" style="display: inline-block">선택된 파일 없음</span>(<span id="now-file-size">0mb</span>)
 					<i class="fas fa-times" id="close_btn" style="display:none"></i>
@@ -77,12 +83,13 @@
 		<input name="bno" type="hidden" value="${one.bno}">
 		<input name="writer" type="hidden" value="${one.writer}">
 		<input name="basic_check" type="hidden" id="basic_check" value="no">
+		<input id="textcontent" name="textcontent" type="hidden" value="${one.textcontent}">
 	</form>
 	</div>
 </c:if>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			if(${sessionScope.loginUser.id != one.writer}){
+			if(${sessionScope.userid != one.writer}){
 				alert('잘못된 경로 입니다');
 				history.back();
 			}

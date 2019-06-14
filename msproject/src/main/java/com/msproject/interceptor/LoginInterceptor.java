@@ -4,8 +4,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.servlet.FlashMap;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,10 +21,30 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("userid")==null) {
 			log.info("로그인 해주세요!!");
-			
 			String referer = request.getHeader("referer");
-			response.sendRedirect(referer+"?message=nologin");
+			String uri = request.getRequestURI();
 			
+			int index = referer.lastIndexOf("/");
+			int length = referer.length();
+			String url = referer.substring(index,length);
+			
+			if(url.equals("/create")) {
+				response.sendRedirect(request.getContextPath()+"/board/list");
+				return false;
+			}
+			if(url.equals("/update")) {
+				response.sendRedirect(request.getContextPath()+"/board/list");
+				return false;
+			}
+			
+			// Login 페이지로 이동
+			FlashMap flashMap = RequestContextUtils.getOutputFlashMap(request);
+			flashMap.put("message", "nologin");
+			flashMap.put("uri", uri);
+			log.info(">>>URI: "+ uri+" >>>url: "+url);
+			
+			RequestContextUtils.saveOutputFlashMap(referer, request, response);
+			response.sendRedirect(referer);
 			return false;
 		}else {
 			log.info("통과하세요");

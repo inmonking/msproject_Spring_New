@@ -63,9 +63,9 @@ pageEncoding="UTF-8"%>
 		</div>
 		<div style="position: relative;  width: 100%; height: 100px; background-color:rgb(50,50,50);">
 			<div style="position:relative; width: 1500px; height: inherit; margin: 0 auto;background-color:rgb(50,50,50);">
-				<a href="${path }/index.ms"><span style="color: white; font-size: 3em; line-height: 90px; user-select: none;">
+				<a href="${path }/"><span style="color: white; font-size: 3em; line-height: 90px; user-select: none;">
 					<span style="display: flex;justify-content:center; align-items: center; width: 250px; height: 47px; background-image: white">
-						<img src="${path }/resources/img/mainlogo.png" style="width: 240px; ">
+						<img src="${path }/resources/img/mainlogo.png" style="width: 240px; margin-top:50px;">
 					</span>
 				</span></a>
 				<div style="position:absolute; width: 30%;height: 40px; left: 35%;top: 30px;background-color: white;">
@@ -103,17 +103,26 @@ pageEncoding="UTF-8"%>
 		</div>
 	</content>	
 	<script type="text/javascript">
+	//LoginInterceptor에서 보내는 메시지
+	var message = '${message}';
+	var uri = '${uri}';
+	
 		$(document).ready(function() {
+			if(message == "nologin"){
+				$('#modal_login').css('display','flex');
+				$('#err_check_msg').text('로그인이 필요한 서비스 입니다.').css('opacity', '1');
+			}
 			$('#login').click(function(event) {
 				$('#modal_login').css('display','flex');
 			});
 			$('#close').click(function(event) {
-				$('#modal_login').css('display','none');
-				$('#id').val('');
-				$('#pass').val('');
-				$('#err_check_msg').css('opacity', '0');
+				modal_close();
 			});
-
+			 $("body").keyup(function(e) {
+			        if(e.keyCode==27){
+			        	modal_close();	
+			        }
+			 });
 			$('#login_btn').click(function(event) {
 				var id = $.trim($('#id').val());
 				var pass = $.trim($('#pass').val());
@@ -155,7 +164,11 @@ pageEncoding="UTF-8"%>
 					data: "id="+id+"&pw="+pass,
 					success: function(data){
 						if(data == "1"){
-							location.reload();
+							if(uri==''){
+								location.reload();								
+							}else{
+								location.href = uri;
+							}
 						}else if(data == "-1"){
 							$('#inputid').focus();
 							$('#err_check_msg').text('회원 아이디 또는 비밀번호가 일치하지 않습니다.')
@@ -184,6 +197,12 @@ pageEncoding="UTF-8"%>
 				location.href = "${path }/board/list";
 			});
 		});
+		function modal_close(){
+			$('#modal_login').css('display','none');
+			$('#id').val('');
+			$('#pass').val('');
+			$('#err_check_msg').css('opacity', '0');
+		}
 	</script>
 </div>
 </body>

@@ -17,20 +17,17 @@ public class BoardServiceImpl implements BoardService {
 	private BoardDAO bDao;
 	@Override
 	public void create(BoardDTO bDto) {
-		// TODO Auto-generated method stub
-		
+		bDao.create(bDto);
 	}
 
 	@Override
 	public void update(BoardDTO bDto) {
-		// TODO Auto-generated method stub
-		
+		bDao.update(bDto);		
 	}
 
 	@Override
 	public void delete(int bno) {
-		// TODO Auto-generated method stub
-		
+		bDao.delete(bno);		
 	}
 
 	@Override
@@ -56,6 +53,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void replyCountUpdate(int bno, int count) {
 		bDao.replyCountUpdate(bno, count);
+	}
+
+	@Override
+	public int lastBno() {
+		return bDao.lastBno();
 	}
 
 }

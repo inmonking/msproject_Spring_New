@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -68,5 +69,39 @@ public class BoardController {
 		BoardDTO bDto = service.read(bno);
 		model.addAttribute("one", bDto);
 		return "board/boardView";
+	}
+	
+	//게시글 등록 페이지 출력
+	@RequestMapping(value="create", method = RequestMethod.GET)
+	public String createView() {
+		log.info(">>>>>>게시글 등록 페이지 출력");
+		return "board/boardInsert";
+	}
+	
+	//게시글 등록
+	@Transactional
+	@RequestMapping(value="create", method = RequestMethod.POST)
+	public String create(BoardDTO bDto) {
+		service.create(bDto);
+		return "redirect:/board/view?bno="+bDto.getBno();
+	}
+	
+	@RequestMapping(value="update", method = RequestMethod.GET)
+	public String updateView(int bno, Model model) {
+		BoardDTO bDto = service.read(bno);
+		model.addAttribute("one", bDto);
+		return "board/boardUpdate";
+	}
+	
+	@RequestMapping(value="update", method = RequestMethod.POST)
+	public String update(BoardDTO bDto) {
+		service.update(bDto);
+		return "redirect:/board/view?bno="+bDto.getBno();
+	}
+	
+	@RequestMapping(value="delete", method = RequestMethod.GET)
+	public String delete(int bno) {
+		service.delete(bno);
+		return "redirect:/board/list";
 	}
 }

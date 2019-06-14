@@ -81,7 +81,7 @@
 				</div>
 				<div style="width:50%; margin-right: 10px; text-align: right;">
 				
-				<c:if test="${sessionScope.loginUser.id == one.writer}">
+				<c:if test="${sessionScope.userid == one.writer}">
 					<span class="btnP" id="updateBtn" style="background-color: #747474;text-align: center;padding: 8px; border-radius: 10px; color: white">수정</span>
 					<span class="btnP" id="deleteBtn" style="background-color: #747474;text-align: center;padding: 8px; border-radius: 10px; color: white">삭제</span>
 				</c:if>
@@ -165,11 +165,11 @@
 			$("#deleteBtn").click(function(){
 				var flag = confirm("정말 삭제하시겠습니까?");
 				if(flag){
-					location.href = "${path}/delete.ms?bno=${one.bno}&filename=${one.filename}";
+					location.href = "${path}/board/delete?bno=${one.bno}";
 				}
 			});
 			$("#updateBtn").click(function(){
-				location.href = "${path}/update.ms?bno=${one.bno}";
+				location.href = "${path}/board/update?bno=${one.bno}";
 			});
 			
 			$(document).on('click', '.reply_del', function(event) {
@@ -204,7 +204,7 @@
 				type: 'post',
 				dataType: 'json',
 				async: false,
-				data: "bno=${one.bno}&id=${sessionScope.loginUser.id}",
+				data: "bno=${one.bno}&id=${sessionScope.userid}",
 				success: function(data){
 				}
 			});
@@ -215,7 +215,7 @@
 				url: '${path}/boardGood.ms',
 				type: 'post',
 				dataType: 'json',
-				data: "bno=${one.bno}&id=${sessionScope.loginUser.id}",
+				data: "bno=${one.bno}&id=${sessionScope.userid}",
 				success: function(data){
 					if(data.result == "1"){
 						$('.fullheart').css('display', 'block');

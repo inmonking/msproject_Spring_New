@@ -101,17 +101,15 @@
 			</div>
 		</div>
 	</section>
-	<footer>
-	</footer>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			var ckcount = $('.ckboxs').length;
 			$('#cbox').click(function(event) {
 				var flag = $(this).is(':checked');
 				if(flag){
-					$('.ckboxs').prop({checked: true});
+					$('.ckboxs').prop('checked',true);
 				}else{
-					$('.ckboxs').prop({checked: false});
+					$('.ckboxs').prop('checked',false);
 				}
 			});
 			$('.ckboxs').click(function(event) {

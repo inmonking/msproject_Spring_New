@@ -111,7 +111,7 @@ public class MemberController {
 		log.info(">>> 회원수정");
 		MemberDTO mDto = service.viewMember(session);
 		model.addAttribute("one",mDto);
-		return "member/index2";
+		return "member/info_update";
 	}
 	
 	@RequestMapping(value="/update",method = RequestMethod.POST)

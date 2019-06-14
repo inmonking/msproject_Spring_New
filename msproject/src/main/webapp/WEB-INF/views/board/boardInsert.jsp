@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
-<c:if test="${sessionScope.loginUser == null }">
+<c:if test="${sessionScope.userid == null }">
 	<script>
 		alert("로그인 하신 후 사용하세요.");
-		location.href="${path}/boardList.ms?message=nologin";
+		location.href="${path}/board/list?message=nologin";
 	</script>
 </c:if>
 <!DOCTYPE html>
@@ -25,9 +25,9 @@
 	}
 </style>
 <body>
-	<script type="text/javascript" src="${path}/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+	<script type="text/javascript" src="${path}/resources/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
 	<div class="viewBody" style="width: 850px;height: ;margin: 80px auto 100px; background-color: white; border: 1.5px solid black; border-radius: 10px; padding: 20px">
-		<form action="insertPlay.ms" id="frm_body" method="post" enctype="multipart/form-data">
+		<form action="${path }/board/create" id="frm_body" method="post">
 		<div><h3 style="font-size: 35px; margin: 10px 0px 20px; font-weight: bold;">게시글 작성</h3></div>
 		<div style="width: 800px; margin:0 auto; border-radius: 10px 10px 0px 0px; overflow: hidden;">
 			<div style="height: 40px; width: 100%; color: white; background-color:#747474; border-bottom: 1px solid lightgray">
@@ -35,7 +35,7 @@
 				<input id="title" name="title" type="text" name="" placeholder="제목을 입력해주세요" style="padding-left: 10px;width:86%; height: 30px;margin-top: 5px; border: none; outline: none; font-size: 15px; border-radius: 5px; color: black;">
 			</div>
 			<div style="font-size: 15px">
-				<div style="padding: 10px 20px;background-color:#747474;color: white;">CONTENT<span style="float: right;margin-left: 10px;">${sessionScope.loginUser.id}</span><span style="float: right;">WRITER</span></div>
+				<div style="padding: 10px 20px;background-color:#747474;color: white;">CONTENT<span style="float: right;margin-left: 10px;">${sessionScope.userid}</span><span style="float: right;">WRITER</span></div>
 				<div style="padding: 10px; border: 1px solid #747474">
 					<textarea id="contentInsert" name="content" style="width: 100%; height:500px; box-sizing: border-box; resize: none; border: none"></textarea>
 					<script type="text/javascript">
@@ -43,7 +43,7 @@
 						nhn.husky.EZCreator.createInIFrame({
 							oAppRef: oEditors,
 						 	elPlaceHolder: "contentInsert",
-						 	sSkinURI: "<%=request.getContextPath()%>/smarteditor/SmartEditor2Skin.html",
+						 	sSkinURI: "<%=request.getContextPath()%>/resources/smarteditor/SmartEditor2Skin.html",
 						 	fCreator: "createSEditor2"
 						});
 					</script>
@@ -51,7 +51,7 @@
 			</div>
 			<div style="width: 100%; height: 50px; border: 1px solid #747474; border-top: none; box-sizing: border-box; display: flex; align-items: center;">
 				<div style="width:50%; margin-left: 10px;">
-					<input id="uploadfile" type="file" name="uploadfile" style="">
+					<input id="uploadfile" type="file" name="filename" style="">
 					<input id="btn-file" type="button" value="파일선택">
 					<span id="file_name" style="display: inline-block">선택된 파일 없음</span>(<span id="now-file-size">0mb</span>)
 					<i class="fas fa-times" id="close_btn" style="display:none"></i>				
@@ -59,7 +59,8 @@
 				<div style="width:50%; margin-right: 10px;"><span id="frm_btn" style="background-color: #747474;text-align: center;padding: 8px; border-radius: 10px; float: right; color: white; user-select:none; cursor: pointer">SUBMIT</span></div>
 			</div>
 		</div>
-		<input name="writer" type="hidden" value="${sessionScope.loginUser.id}">
+		<input name="writer" type="hidden" value="${sessionScope.userid}">
+		<input id="textcontent" name="textcontent" type="hidden" value="">
 		</form>
 	</div>
 	<script type="text/javascript">
@@ -69,8 +70,8 @@
 				oEditors.getById["contentInsert"].exec("UPDATE_CONTENTS_FIELD",[]);
 				var title = $.trim($("#title").val());
 				var content = $("#contentInsert").val();
-				var text = content.replace(/[<][^>]*[>]/gi,"");
-				alert(text);
+				var textcontent = content.replace(/[<][^>]*[>]/gi,"");
+				$('#textcontent').val(textcontent);
 				if(title == ""){
 					alert('제목이 있어야 합니다.');
 					return false;

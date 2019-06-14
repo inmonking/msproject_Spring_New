@@ -25,4 +25,5 @@ public class BoardDTO {
 	private String id;			//작성자 이름(tbl_member 테이블과 조인)
 	private String filename;
 	private int filesize;
+	private String textcontent;
 }
